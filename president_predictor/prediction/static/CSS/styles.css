@@ -1,0 +1,19 @@
+body {
+    
+    padding-top: 100px;
+}
+
+.dataChoiceButton {
+    width: 100px;
+    height: 40px;
+    border-radius: 20%;
+    border-color: white;
+    border-width: 1px;
+    background-color: transparent;
+    color: white;
+}
+
+.maintitle {
+    color: white;
+    font-size: 100px;
+}

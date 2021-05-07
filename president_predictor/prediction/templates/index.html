@@ -1,0 +1,5 @@
+<h1> election_predictor </h1>
+<form action="{% url 'load_live' %}" method="post">
+{% csrf_token %}
+ <button type="submit" name='mybtn2' value={{load_live_path}}>Load Data</button>
+ </form>

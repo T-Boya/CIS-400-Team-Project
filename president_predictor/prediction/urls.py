@@ -18,4 +18,9 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('view_live/', views.view_live, name='view_live'),
+    path('load_live/', views.load_live, name='load_live'),
+    path('clear_live/', views.clear_live, name='clear_live'),
+    # path('loading_live/', view.loading_live, name='loading_live')
+    # path('/gather_data', views.gather_data, name='gather_data')
 ]

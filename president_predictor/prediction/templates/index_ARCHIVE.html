@@ -1,0 +1,36 @@
+{% load bootstrap4 %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    background-image: url("{% static 'IMG/political_parties.png' %}");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    padding: none;
+}
+.content{
+    background-color: gray;
+    height: 90vh;
+    width: 100vw;
+}
+</style>
+<link rel="stylesheet" href="{% static 'CSS/styles.css' %}">
+</head>
+<body>
+    <div class="content">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h3>Twitter Based</h3>
+                <h1 class="display-4 maintitle">Election Predictor</h1>
+                <p class="lead">This is an application that predicts the winner of the American presidential election using tweet data.</p>
+                <button type="button" class="dataChoiceButton">Live Data</button>
+                <button type="button" class="dataChoiceButton">Historical Data</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
