@@ -21,7 +21,7 @@ def index(request):
     if request.session['data_loaded']:
         return redirect(view_live)
     context = {}
-    return render(request, 'index.html', context)
+    return render(request, 'index_ARCHIVE.html', context)
 
 @sync_to_async
 def load_live(request):
