@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+BROKER_URL = 'django://' #must change this for remote server
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'prediction',
+    'celery',
+    'celery_progress',
+    'kombu',
 ]
 
 MIDDLEWARE = [

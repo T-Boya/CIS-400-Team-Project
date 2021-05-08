@@ -1,0 +1,196 @@
+Microsoft Windows [Version 10.0.19042.928]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\osewet>cd "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project"
+
+C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project>source venve
+'source' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project>cd venv
+
+C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv>cs scripts
+'cs' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv>cd scripts
+
+C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\Scripts>activate
+
+(venv) C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\Scripts>cd ../..
+
+(venv) C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project>cd president_predictor
+
+(venv) C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor>./manage.py celery worker --loglevel=info
+'.' is not recognized as an internal or external command,
+operable program or batch file.
+
+(venv) C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor>manage.py celery worker --loglevel=info
+Traceback (most recent call last):
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor\manage.py", line 22, in <module>
+    main()
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor\manage.py", line 18, in main
+    execute_from_command_line(sys.argv)
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\core\management\__init__.py", line 419, in execute_from_command_line
+    utility.execute()
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\core\management\__init__.py", line 395, in execute
+    django.setup()
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\apps\registry.py", line 91, in populate
+    app_config = AppConfig.create(entry)
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\apps\config.py", line 224, in create
+    import_module(entry)
+  File "C:\Users\osewet\AppData\Local\Programs\Python\Python39\lib\importlib\__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1030, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1007, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 984, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'kombu.transport.django'
+
+(venv) C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor>pip install django-kombu
+Collecting django-kombu
+  Downloading django-kombu-0.9.4.tar.gz (7.2 kB)
+Using legacy 'setup.py install' for django-kombu, since package 'wheel' is not installed.
+Installing collected packages: django-kombu
+    Running setup.py install for django-kombu ... done
+Successfully installed django-kombu-0.9.4
+WARNING: You are using pip version 20.2.3; however, version 21.1.1 is available.
+You should consider upgrading via the 'c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\scripts\python.exe -m pip install --upgrade pip' command.
+
+(venv) C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor>manage.py celery worker --loglevel=info
+Traceback (most recent call last):
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor\manage.py", line 22, in <module>
+    main()
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor\manage.py", line 18, in main
+    execute_from_command_line(sys.argv)
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\core\management\__init__.py", line 419, in execute_from_command_line
+    utility.execute()
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\core\management\__init__.py", line 395, in execute
+    django.setup()
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\apps\registry.py", line 91, in populate
+    app_config = AppConfig.create(entry)
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\apps\config.py", line 224, in create
+    import_module(entry)
+  File "C:\Users\osewet\AppData\Local\Programs\Python\Python39\lib\importlib\__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1030, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1007, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 984, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'kombu.transport.django'
+
+(venv) C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor>pip install django-kombu
+Requirement already satisfied: django-kombu in c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages (0.9.4)
+WARNING: You are using pip version 20.2.3; however, version 21.1.1 is available.
+You should consider upgrading via the 'c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\scripts\python.exe -m pip install --upgrade pip' command.
+
+(venv) C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor>manage.py celery worker --loglevel=info
+Traceback (most recent call last):
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor\manage.py", line 22, in <module>
+    main()
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor\manage.py", line 18, in main
+    execute_from_command_line(sys.argv)
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\core\management\__init__.py", line 419, in execute_from_command_line
+    utility.execute()
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\core\management\__init__.py", line 395, in execute
+    django.setup()
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\apps\registry.py", line 91, in populate
+    app_config = AppConfig.create(entry)
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\apps\config.py", line 224, in create
+    import_module(entry)
+  File "C:\Users\osewet\AppData\Local\Programs\Python\Python39\lib\importlib\__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1030, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1007, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 984, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'django-kombu'
+
+(venv) C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor>manage.py celery worker --loglevel=info
+Traceback (most recent call last):
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor\manage.py", line 22, in <module>
+    main()
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor\manage.py", line 18, in main
+    execute_from_command_line(sys.argv)
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\core\management\__init__.py", line 419, in execute_from_command_line
+    utility.execute()
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\core\management\__init__.py", line 395, in execute
+    django.setup()
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\apps\registry.py", line 91, in populate
+    app_config = AppConfig.create(entry)
+  File "C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\venv\lib\site-packages\django\apps\config.py", line 224, in create
+    import_module(entry)
+  File "C:\Users\osewet\AppData\Local\Programs\Python\Python39\lib\importlib\__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1030, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1007, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 984, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'kombu.transport.django'
+
+(venv) C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor>pip uninstall django-kombu
+Found existing installation: django-kombu 0.9.4
+Uninstalling django-kombu-0.9.4:
+  Would remove:
+    c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages\django_kombu-0.9.4-py3.9.egg-info
+    c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages\djkombu\*
+Proceed (y/n)? y
+  Successfully uninstalled django-kombu-0.9.4
+
+(venv) C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor>pip install kombu
+Requirement already satisfied: kombu in c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages (5.0.2)
+Requirement already satisfied: amqp<6.0.0,>=5.0.0 in c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages (from kombu) (5.0.6)
+Requirement already satisfied: vine==5.0.0 in c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages (from amqp<6.0.0,>=5.0.0->kombu) (5.0.0)
+WARNING: You are using pip version 20.2.3; however, version 21.1.1 is available.
+You should consider upgrading via the 'c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\scripts\python.exe -m pip install --upgrade pip' command.
+
+(venv) C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor>manage.py celery worker --loglevel=info
+Unknown command: 'celery'
+Type 'manage.py help' for usage.
+
+(venv) C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor>pip install "celery[librabbitmq,redis,auth,msgpack]"
+Requirement already satisfied: celery[auth,librabbitmq,msgpack,redis] in c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages (5.0.5)
+Requirement already satisfied: click-repl>=0.1.6 in c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages (from celery[auth,librabbitmq,msgpack,redis]) (0.1.6)
+Requirement already satisfied: vine<6.0,>=5.0.0 in c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages (from celery[auth,librabbitmq,msgpack,redis]) (5.0.0)
+Requirement already satisfied: click-plugins>=1.1.1 in c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages (from celery[auth,librabbitmq,msgpack,redis]) (1.1.1)
+Requirement already satisfied: click-didyoumean>=0.0.3 in c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages (from celery[auth,librabbitmq,msgpack,redis]) (0.0.3)
+Requirement already satisfied: kombu<6.0,>=5.0.0 in c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages (from celery[auth,librabbitmq,msgpack,redis]) (5.0.2)
+Requirement already satisfied: click<8.0,>=7.0 in c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages (from celery[auth,librabbitmq,msgpack,redis]) (7.1.2)
+Requirement already satisfied: billiard<4.0,>=3.6.3.0 in c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages (from celery[auth,librabbitmq,msgpack,redis]) (3.6.4.0)
+Requirement already satisfied: pytz>dev in c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages (from celery[auth,librabbitmq,msgpack,redis]) (2021.1)
+Collecting cryptography; extra == "auth"
+  Downloading cryptography-3.4.7-cp36-abi3-win_amd64.whl (1.6 MB)
+     |████████████████████████████████| 1.6 MB 504 kB/s
+Collecting librabbitmq>=1.5.0; extra == "librabbitmq"
+  Downloading librabbitmq-2.0.0.tar.gz (42 kB)
+     |████████████████████████████████| 42 kB 383 kB/s
+Collecting msgpack; extra == "msgpack"
+  Downloading msgpack-1.0.2-cp39-cp39-win_amd64.whl (68 kB)
+     |████████████████████████████████| 68 kB 619 kB/s
+Collecting redis>=3.2.0; extra == "redis"
+  Downloading redis-3.5.3-py2.py3-none-any.whl (72 kB)
+     |████████████████████████████████| 72 kB 871 kB/s
+Requirement already satisfied: prompt-toolkit in c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages (from click-repl>=0.1.6->celery[auth,librabbitmq,msgpack,redis]) (3.0.18)
+Requirement already satisfied: six in c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages (from click-repl>=0.1.6->celery[auth,librabbitmq,msgpack,redis]) (1.16.0)
+Requirement already satisfied: amqp<6.0.0,>=5.0.0 in c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages (from kombu<6.0,>=5.0.0->celery[auth,librabbitmq,msgpack,redis]) (5.0.6)
+Collecting cffi>=1.12
+  Using cached cffi-1.14.5-cp39-cp39-win_amd64.whl (179 kB)
+Requirement already satisfied: wcwidth in c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\lib\site-packages (from prompt-toolkit->click-repl>=0.1.6->celery[auth,librabbitmq,msgpack,redis]) (0.2.5)
+Collecting pycparser
+  Using cached pycparser-2.20-py2.py3-none-any.whl (112 kB)
+Using legacy 'setup.py install' for librabbitmq, since package 'wheel' is not installed.
+Installing collected packages: pycparser, cffi, cryptography, librabbitmq, msgpack, redis
+    Running setup.py install for librabbitmq ... done
+Successfully installed cffi-1.14.5 cryptography-3.4.7 librabbitmq-2.0.0 msgpack-1.0.2 pycparser-2.20 redis-3.5.3
+WARNING: You are using pip version 20.2.3; however, version 21.1.1 is available.
+You should consider upgrading via the 'c:\users\osewet\dropbox\bachelors\arch\social_media_mining\final project\venv\scripts\python.exe -m pip install --upgrade pip' command.
+
+(venv) C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor>manage.py celery worker --loglevel=info
+Unknown command: 'celery'
+Type 'manage.py help' for usage.
+
+(venv) C:\Users\osewet\Dropbox\Bachelors\Arch\social_media_mining\Final Project\president_predictor> 

@@ -1,5 +1,197 @@
-<h1> election_predictor </h1>
-<form action="{% url 'load_live' %}" method="post">
-{% csrf_token %}
- <button type="submit" name='mybtn2' value={{load_live_path}}>Load Data</button>
- </form>
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html {
+  scroll-behavior: smooth;
+}
+button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.arrow {
+  width: 45px;
+  border: solid black;
+  border-width: 0 7.5px 7.5px 0;
+  display: inline-block;
+  padding: 20px;
+  margin-top: 120px;
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.title {
+    text-align: center;
+}
+.sub {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 45px;
+}
+.main {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 75px;
+    letter-spacing: 5px;
+}
+.about {
+    font-size:20px;
+    text-align: center;
+    padding-bottom: 350px;
+    font-family: 'Oswald', sans-serif;
+}
+.buttonArea {
+    text-align: center;
+}
+.searchButtonContainer {
+    display: inline-block;
+}
+.searchButton {
+    font-family: 'Roboto Condensed', sans-serif;
+    margin: 10px;
+    border-radius: 10px;
+}
+.searchButton:hover {
+    background-color: #b1babd;
+}
+#archiveSearchInfo {
+    display: none;
+}
+
+#topBtn {
+  height: 40px;
+  width: 60px;
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 0;
+  border-radius: 10px;
+  font-size: 18px;
+  background: transparent;
+  border: 2px solid black;
+}
+
+#topBtn:hover {
+  background-color: #b1babd;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #c0c9cc;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+</style>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Oswald:wght@200&family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+{% comment %} <link rel="stylesheet" href="{% static 'CSS/styles.css' %}"> {% endcomment %}
+</head>
+<body style="background-color: #E8E7E5;">
+    <nav class="navbar navbar-expand-lg navbar-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+        {% comment %} <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li> {% endcomment %}
+        <form action="{% url 'loading_live' %}" method="post">
+            {% csrf_token %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'loading_live' %}">Live Search</a>
+            </li>
+        </form>
+        <li class="nav-item">
+            <a class="nav-link" href="#02" onclick="showSearchInfo()">Archive Search</a>
+        </li>
+        {% comment %} <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+        </li> {% endcomment %}
+        </ul>
+    </div>
+    </nav>
+
+    <section id="01">
+    <div style="height: 100vh;">
+        <div class="sub title" style="margin-top: 10vh;">
+            <p> TWITTER-DATA BASED </p>
+        </div>
+        <div class="main title">
+            <p> ELECTION PREDICTOR </p>
+        </div>
+        <div class="title"><a href="#02"><p><i class="arrow down"></i><p></a></div>
+    </div>
+    </section>
+    <section id="02">
+     <div class="about">
+        <p>Elections are by the people, for the people so what better way to predict the winner than by using information from the people!</p>
+        <p>We collect twitter data and use it to predict the winner of the US election. To use live data 
+        click on 'Live Search' and to use archived data click on 'Archive Search'!</p>
+        <div class="buttonArea">
+            <div class="searchButtonContainer" style="margin-left: 30px;">
+                <form action="{% url 'loading_live' %}" method="post">
+                    {% csrf_token %}
+                    <button class="searchButton" href="{% url 'loading_live' %}">Live Search</button>
+                </form>
+            </div>
+            <div class="searchButtonContainer">
+                <button class="searchButton" onclick="showSearchInfo()">Archive Search</button>
+            </div>
+        </div>
+        <div id="archiveSearchInfo">
+            <div class="buttonArea" style="padding-right: 8px;">
+                <h5>Start Date | End Date</h5>
+            </div>
+            <div class="buttonArea">
+                <input type="date" value="2016-08-26"  min="2010-08-15" max="2021-08-26" >
+                <input type="date" value="2016-09-26" min="2010-08-15" max="2021-08-26" >
+            </div>
+            <form action="{% url 'loading_live' %}" method="post">
+                {% csrf_token %}
+                <button class="searchButton" href="{% url 'loading_live' %}">Go</button>
+            </form>
+        </div>
+     </div>
+    </section>
+    <button onclick="topFunction()" id="topBtn" title="Go to top">Top</button>
+
+    <script>
+        //Get the button:
+        mybutton = document.getElementById("topBtn");
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
+        function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+        }
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+
+        function showSearchInfo() {
+            var x = document.getElementById("archiveSearchInfo");
+            x.style.display = "block";
+        }
+    </script>
+</body>
+</html>
