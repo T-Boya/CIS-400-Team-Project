@@ -101,7 +101,7 @@ if __name__ == "__main__":
     """
 
     # YOU NEED THIS NEXT LINE
-    classifier, wf = create_Classifier()
+    classifier, wf = create_classifier()
     tot = len(test_tweet_questions)
     i = 0
     correct_dem = 0
