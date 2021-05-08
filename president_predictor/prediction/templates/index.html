@@ -152,10 +152,10 @@ button:focus {
         {% comment %} <li class="nav-item active">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li> {% endcomment %}
-        <form action="{% url 'loading_live' %}" method="post">
+        <form action="{% url 'load_live' %}" method="post">
             {% csrf_token %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'loading_live' %}" onclick="loadingScreen()">Live Search</a>
+                <a class="nav-link" href="{% url 'load_live' %}" onclick="loadingScreen()">Live Search</a>
             </li>
         </form>
         <li class="nav-item">
@@ -186,9 +186,9 @@ button:focus {
         click on 'Live Search' and to use archived data click on 'Archive Search'!</p>
         <div class="buttonArea">
             <div class="searchButtonContainer" style="margin-left: 30px;">
-                <form action="{% url 'loading_live' %}" method="post">
+                <form action="{% url 'load_live' %}" method="post">
                     {% csrf_token %}
-                    <button class="searchButton" href="{% url 'loading_live' %}" onclick="loadingScreen()">Live Search</button>
+                    <button class="searchButton" href="{% url 'load_live' %}" onclick="loadingScreen()">Live Search</button>
                 </form>
             </div>
             <div class="searchButtonContainer">
@@ -203,9 +203,9 @@ button:focus {
                 <input type="date" value="2016-08-26"  min="2010-08-15" max="2021-08-26" >
                 <input type="date" value="2016-09-26" min="2010-08-15" max="2021-08-26" >
             </div>
-            <form action="{% url 'loading_live' %}" method="post">
+            <form action="{% url 'load_archive' %}" method="post">
                 {% csrf_token %}
-                <button class="searchButton" href="{% url 'loading_live' %}" onclick="loadingScreen()">Go</button>
+                <button class="searchButton" href="{% url 'load_archive' %}" onclick="loadingScreen()">Go</button>
             </form>
         </div>
      </div>
