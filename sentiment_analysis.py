@@ -2,19 +2,11 @@ from textblob import TextBlob
 import csv
 from nltk import *
 
-dem_tweets = [("Democrat", "Trump Sucks")]
-rep_tweets = [("Republican", "Biden Sucks")]
 test_tweet_questions = []
 test_tweet_answers = []
-tweets = []
-
-def test(s):
-    u = TextBlob(s)
-    print(u)
-    print(u.sentiment_assessments)
 
 
-def pullTestData():
+def pullTestData(dem_tweets, rep_tweets):
     n = 10000
     tn = 1000
     with open('ExtractedTweets.csv', 'r', newline='', encoding="utf8") as csvfile:
@@ -46,26 +38,16 @@ def pullTestData():
                 r += 1
             if d + r >= n + tn:
                 break
-        r = 0
-        d = 0
-        with open('SentimentAnaylsisDataset.csv', 'w', newline='', encoding="utf8") as wfile:
-            writer = csv.writer(wfile)
-            while d + r < n:
-                if d <= r:
-                    writer.writerow(rdem_tweets[d])
-                    d += 1
-                else:
-                    writer.writerow(rrep_tweets[r])
-                    r += 1
+        csvfile.close()
 
 
-def train():
+def train(dem_tweets, rep_tweets, tweets):
     for (words, sentiment) in dem_tweets + rep_tweets:
         words_filtered = [e.lower() for e in words.split() if len(e) >= 3]
         tweets.append((words_filtered, sentiment))
 
 
-def get_words_in_tweets():
+def get_words_in_tweets(tweets):
     all_words = []
     for (words, sentiment) in tweets:
         all_words += words
@@ -81,12 +63,24 @@ def get_word_features(wordlist):
 
 # print  word_features
 
-def extract_features(document):
+def extract_features(document, word_features):
     document_words = set(document)
     features = {}
     for word in word_features:
         features['contains(%s)' % word] = (word in document_words)
     return features
+
+
+def create_classifier():
+    dem_tweets = [("Democrat", "Trump Sucks")]
+    rep_tweets = [("Republican", "Biden Sucks")]
+    tweets = []
+    pullTestData(dem_tweets, rep_tweets)
+    train(dem_tweets, rep_tweets, tweets)
+    word_features = get_word_features(get_words_in_tweets(tweets))
+    training_set = [(extract_features(d, word_features), c) for (d, c) in tweets]
+    classifier = NaiveBayesClassifier.train(training_set)
+    return classifier, word_features
 
 
 if __name__ == "__main__":
@@ -100,18 +94,21 @@ if __name__ == "__main__":
     test_tweets = []
     for t in s["statuses"]:
         test_tweets.append(t["full_text"])
-    """
     pullTestData()
     train()
-    word_features = get_word_features(get_words_in_tweets())
     training_set = [(extract_features(d), c) for (d, c) in tweets]
     classifier = NaiveBayesClassifier.train(training_set)
+    """
+
+    # YOU NEED THIS NEXT LINE
+    classifier, wf = create_Classifier()
     tot = len(test_tweet_questions)
     i = 0
     correct_dem = 0
     correct_rep = 0
     while i < tot:
-        ef = classifier.classify(extract_features([e.lower() for e in test_tweet_questions[i].split() if len(e) >= 3]))
+        # WHEN YOU WANT TO CLASSIFY A TWEET USE THIS NEXT LINE. CHANGE "test_tweet_questions[i]" TO THE STRING YOU WANT TO CLASSIFY.
+        ef = classifier.classify(extract_features([e.lower() for e in test_tweet_questions[i].split() if len(e) >= 3], wf))
         print(ef + " : " + test_tweet_answers[i])
         if ef == test_tweet_answers[i]:
             if test_tweet_answers[i] == "Democrat":
