@@ -2,8 +2,6 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import asyncio, requests, httpx, time
 from asgiref.sync import sync_to_async
-from celery import shared_task
-from celery_progress.backend import ProgressRecorder
 
 # Vars for Archived Data
 
@@ -56,6 +54,7 @@ def clear_live(request):
     return redirect(index)
 
 def results(request):
+    time.sleep(10)
     if not request.session['data_loaded']:
         return redirect(index)
     context = {

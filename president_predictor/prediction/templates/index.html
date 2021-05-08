@@ -11,7 +11,12 @@ button:focus {
     outline: none !important;
     box-shadow: none !important;
 }
-
+#body1 {
+    display: block;
+}
+#body2 {
+    display: none;
+}
 .arrow {
   width: 45px;
   border: solid black;
@@ -94,6 +99,42 @@ button:focus {
   border: 6px solid transparent;
   background-clip: content-box;
 }
+.lds-facebook {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 16px;
+  background: black;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds-facebook div:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+}
+.lds-facebook div:nth-child(2) {
+  left: 32px;
+  animation-delay: -0.12s;
+}
+.lds-facebook div:nth-child(3) {
+  left: 56px;
+  animation-delay: 0;
+}
+@keyframes lds-facebook {
+  0% {
+    top: 8px;
+    height: 128px;
+  }
+  50%, 100% {
+    top: 24px;
+    height: 64px;
+  }
+}
 </style>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -101,6 +142,7 @@ button:focus {
 {% comment %} <link rel="stylesheet" href="{% static 'CSS/styles.css' %}"> {% endcomment %}
 </head>
 <body style="background-color: #E8E7E5;">
+<div id="body1">
     <nav class="navbar navbar-expand-lg navbar-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -113,7 +155,7 @@ button:focus {
         <form action="{% url 'loading_live' %}" method="post">
             {% csrf_token %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'loading_live' %}">Live Search</a>
+                <a class="nav-link" href="{% url 'loading_live' %}" onclick="loadingScreen()">Live Search</a>
             </li>
         </form>
         <li class="nav-item">
@@ -146,7 +188,7 @@ button:focus {
             <div class="searchButtonContainer" style="margin-left: 30px;">
                 <form action="{% url 'loading_live' %}" method="post">
                     {% csrf_token %}
-                    <button class="searchButton" href="{% url 'loading_live' %}">Live Search</button>
+                    <button class="searchButton" href="{% url 'loading_live' %}" onclick="loadingScreen()">Live Search</button>
                 </form>
             </div>
             <div class="searchButtonContainer">
@@ -163,12 +205,39 @@ button:focus {
             </div>
             <form action="{% url 'loading_live' %}" method="post">
                 {% csrf_token %}
-                <button class="searchButton" href="{% url 'loading_live' %}">Go</button>
+                <button class="searchButton" href="{% url 'loading_live' %}" onclick="loadingScreen()">Go</button>
             </form>
         </div>
      </div>
     </section>
     <button onclick="topFunction()" id="topBtn" title="Go to top">Top</button>
+    </div>
+
+    {% comment %} LOADING SCREEN {% endcomment %}
+    <div id="body2">
+        <nav class="navbar navbar-expand-lg navbar-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+        <form action="{% url 'index' %}" method="post">
+            {% csrf_token %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">Home</a>
+            </li>
+        </form>
+        </ul>
+    </div>
+    </nav>
+    <div style="text-align: center; padding-top: 35vh;">
+        <div class="lds-facebook"><div></div><div></div><div></div></div>
+        <div style="margin-top: 50px;">
+            <h2>Loading</h2>
+            <h6>(Grab a coffee, this could be a while)</h6>
+        </div>
+    </div>
+    </div>
 
     <script>
         //Get the button:
@@ -187,10 +256,15 @@ button:focus {
         document.body.scrollTop = 0; // For Safari
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         }
-
         function showSearchInfo() {
             var x = document.getElementById("archiveSearchInfo");
             x.style.display = "block";
+        }
+        function loadingScreen() {
+            var b1 = document.getElementById("body1");
+            var b2 = document.getElementById("body2");
+            b1.style.display = "none";
+            b2.style.display = "block";
         }
     </script>
 </body>

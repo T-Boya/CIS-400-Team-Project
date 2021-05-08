@@ -39,9 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'prediction',
-    'celery',
-    'celery_progress',
-    'kombu',
 ]
 
 MIDDLEWARE = [
