@@ -83,6 +83,10 @@ def create_classifier():
     return classifier, word_features
 
 
+def classify_tweet(cs, wf2, tweet):
+    return cs.classify(extract_features([e.lower() for e in tweet.split() if len(e) >= 3], wf2))
+
+
 if __name__ == "__main__":
     """"
     myAuth = twitter.oauth.OAuth(consumer_key='cvUnT3e5uMm7URiYZscsED8DF',  # just auth stuff
@@ -107,8 +111,7 @@ if __name__ == "__main__":
     correct_dem = 0
     correct_rep = 0
     while i < tot:
-        # WHEN YOU WANT TO CLASSIFY A TWEET USE THIS NEXT LINE. CHANGE "test_tweet_questions[i]" TO THE STRING YOU WANT TO CLASSIFY.
-        ef = classifier.classify(extract_features([e.lower() for e in test_tweet_questions[i].split() if len(e) >= 3], wf))
+        ef = classify_tweet(classifier, wf, test_tweet_questions[i])
         print(ef + " : " + test_tweet_answers[i])
         if ef == test_tweet_answers[i]:
             if test_tweet_answers[i] == "Democrat":
