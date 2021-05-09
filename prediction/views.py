@@ -17,8 +17,8 @@ def index(request):
 
 # load live twitter data
 def load_live(request):
-    democrat_kwarg_list = 'Biden, biden, Democratic, democratic, Democrat, democrat'
-    republican_kwarg_list = 'Trump, trump, Republican, republican, GOP, gop'
+    democrat_kwarg_list = 'biden, democratic, democrat' # API is case insensitive
+    republican_kwarg_list = 'trump, republican, gop'
     bipartisan_kwarg_list = democrat_kwarg_list + ', ' + republican_kwarg_list
     dem, rep = Current_Tweets_Sentiment(bipartisan_kwarg_list, 200)
     print("Democratic: ", dem, " Republican: ", rep)
