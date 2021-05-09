@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import asyncio, requests, httpx, time
 from asgiref.sync import sync_to_async
+from .live_data_analyzer import Current_Tweets_Sentiment, oauth_login
 # Vars for Archived Data
 
 # new architecture: home page does not redirect on data collection but alerts user. data collection page has a 'recollect' option
@@ -16,7 +17,11 @@ def index(request):
 
 # load live twitter data
 def load_live(request):
-    time.sleep(5)
+    democrat_kwarg_list = 'Biden, biden, Democratic, democratic, Democrat, democrat'
+    republican_kwarg_list = 'Trump, trump, Republican, republican, GOP, gop'
+    bipartisan_kwarg_list = democrat_kwarg_list + ', ' + republican_kwarg_list
+    dem, rep = Current_Tweets_Sentiment(bipartisan_kwarg_list, 200)
+    print("Democratic: ", dem, " Republican: ", rep)
     context  = {}
     return render(request, 'results.html', context)
 
