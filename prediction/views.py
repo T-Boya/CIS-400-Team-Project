@@ -20,20 +20,22 @@ def load_live(request):
     democrat_kwarg_list = 'biden, democratic, democrat' # API is case insensitive
     republican_kwarg_list = 'trump, republican, gop'
     bipartisan_kwarg_list = democrat_kwarg_list + ', ' + republican_kwarg_list
-    democrats, republicans = Current_Tweets_Sentiment(bipartisan_kwarg_list, 200)
-    # democrats = 150
-    # republicans = 50
+    # democrats, republicans = Current_Tweets_Sentiment(bipartisan_kwarg_list, 200)
+    democrats = 150
+    republicans = 50
     print('in the view now')
     print("Democratic: ", democrats, " Republican: ", republicans)
     winner = "DEMOCRATS" if democrats > republicans else "REPUBLICANS"
     vote_share = democrats * 100 / (democrats + republicans)
+    winner_vote_share= (democrats * 100 / (democrats + republicans)) if democrats > republicans else (republicans * 100 / (democrats + republicans))
     pie_chart = "radial-gradient( circle closest-side, transparent 66%, white 0), conic-gradient(#4e79a7 0, #4e79a7 {}%, #edc949 0, #edc949 100%);".format(vote_share)
     context  = {"winner" : winner,
                 "democrats" : democrats,
                 "republicans" : republicans,
                 "total" : (democrats + republicans),
                 "vote_share" : vote_share,
-                "pie_chart" : pie_chart}
+                "pie_chart" : pie_chart,
+                "winner_vote_share" : winner_vote_share}
     return render(request, 'results.html', context)
 
 def load_archive(request):

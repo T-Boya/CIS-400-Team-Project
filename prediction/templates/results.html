@@ -13,10 +13,10 @@
 			white 0
 		),
 		conic-gradient(
-			#4e79a7 0,
-			#4e79a7 {{vote_share}}%,
-			#edc949 0,
-			#edc949 100%
+			#6495ED 0,
+			#6495ED {{vote_share}}%,
+			#CD5C5C 0,
+			#CD5C5C 100%
 	);
 	position: relative;
 	width: 500px;
@@ -91,28 +91,27 @@
         <div class="about">
             <div class="card" style="font-size: 100px; float:left; width: 20rem;">
                 <div class="card-body">
-                    <h5>Liked in</h5>
-                    <h1>X%</h1>
-                    <h5>of posts</h5>
+                    <h1>{{ total }}</h1>
+                    <h5>posts analyzed</h5>
                 </div>
             </div>
             <div class="card" style="font-size: 100px; float:left; width: 40rem;">
             {% comment %} GRAPH GOES HERE {% endcomment %}
-                <div class="card-body">
-                    <figure class="pie-chart" style="background:(conic-gradient:)">
+                <div class="card-body" style="text-align: center; padding-left: 10%">
+                    <figure class="pie-chart">
                         <h5>Vote Ratio</h5>
                         <figcaption>
-                            Democrats {{ democrats }}<span style="size: 5px; color:#4e79a7"></span><br>
-                            Republicans {{ republicans }}<span style="size: 5%; color:#edc949"></span>
+                            Democrats<span style="size: 5px; color:#6495ED"></span><br>
+                            Republicans<span style="size: 5%; color:#CD5C5C"></span>
                         </figcaption>
                     </figure>
                 </div>
             </div>
             <div class="card" style="font-size: 100px; float:left; width: 20rem;">
                 <div class="card-body">
-                    <h5>Some other</h5>
-                    <h1>Metric</h1>
-                    <h5>to be decided</h5>
+                    <h5>Liked in</h5>
+                    <h1>{{ winner_vote_share }}%</h1>
+                    <h5>of posts</h5>
                 </div>
             </div>
         </div>
