@@ -48,6 +48,7 @@ def Current_Tweets_Sentiment(listOfTerms, numberOfTweet):
     tweet_Max = numberOfTweet
     tweet_Counter = 0
     list_Of_Tweets = []
+    list_Of_Weights = []
 
     print('Filtering the public timeline for track = {0}'.format(listOfTerms), file=sys.stderr)
     sys.stderr.flush()
@@ -84,9 +85,15 @@ def Current_Tweets_Sentiment(listOfTerms, numberOfTweet):
             if sentimentScore < 0:
                 negTweetID.append(tweet['id'])
             """
+            # print('NEW TWEET:')
+            # print(tweet)
+            # print("WEIGHT: ", end = '')
+            # print(min(1, str(int(tweet['retweet_count']) * 0.4 + int(tweet['favorite_count']) * 0.2)))
+            # print('\n\n')
 
-            #Making a list of all tweet
+            #Making a list of all tweets and weights
             list_Of_Tweets.append(tweet['text'])
+            list_Of_Weights.append(max(1, int(round(int(tweet['retweet_count']) * 0.4 + int(tweet['favorite_count']) * 0.2))))
 
             #get a number of tweet in stream
             tweet_Counter += 1
@@ -119,9 +126,9 @@ def Current_Tweets_Sentiment(listOfTerms, numberOfTweet):
         # print(list_Of_Tweets[i])
         ef = classify_tweet(classifier, wf, list_Of_Tweets[i])
         if ef == "Democrat":
-                correct_dem += 1
+                correct_dem += list_Of_Weights[i]
         if ef == "Republican":
-                correct_rep += 1
+                correct_rep += list_Of_Weights[i]
         i += 1
 
     return correct_dem,correct_rep

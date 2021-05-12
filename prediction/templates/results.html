@@ -4,6 +4,55 @@
 <html>
 <head>
 <title>Results</title>
+<style>
+.pie-chart {
+	background:
+		radial-gradient(
+			circle closest-side,
+			transparent 66%,
+			white 0
+		),
+		conic-gradient(
+			#4e79a7 0,
+			#4e79a7 {{vote_share}}%,
+			#edc949 0,
+			#edc949 100%
+	);
+	position: relative;
+	width: 500px;
+	min-height: 350px;
+	margin: 0;
+	outline: 1px solid #ccc;
+}
+.pie-chart h2 {
+	position: absolute;
+	margin: 1rem;
+}
+.pie-chart cite {
+	position: absolute;
+	bottom: 0;
+	font-size: 80%;
+	padding: 1rem;
+	color: gray;
+}
+.pie-chart figcaption {
+	position: absolute;
+	bottom: 1em;
+	right: 1em;
+	font-size: 20px;
+	text-align: right;
+}
+.pie-chart span:after {
+	display: inline-block;
+	content: "";
+	width: 0.8em;
+	height: 0.8em;
+	margin-left: 0.4em;
+	height: 0.8em;
+	border-radius: 0.2em;
+	background: currentColor;
+}
+</style>
 <link rel="stylesheet" href="{% static 'CSS/styles.css' %}">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -30,10 +79,10 @@
     <section id="01">
     <div style="height: 100vh;">
         <div class="sub title" style="margin-top: 10vh;">
-            <p> AND THE WINNER IS: </p>
+            <p> AND THE WINNING PARTY IS: </p>
         </div>
         <div class="main title">
-            <p>A DEMOCRAT! </p>
+            <p>{{ winner }}!</p>
         </div>
         <div class="title"><a href="#02"><p><i class="arrow down"></i><p></a></div>
     </div>
@@ -50,7 +99,13 @@
             <div class="card" style="font-size: 100px; float:left; width: 40rem;">
             {% comment %} GRAPH GOES HERE {% endcomment %}
                 <div class="card-body">
-                    <h1>Graph</h1>
+                    <figure class="pie-chart" style="background:(conic-gradient:)">
+                        <h5>Vote Ratio</h5>
+                        <figcaption>
+                            Democrats {{ democrats }}<span style="size: 5px; color:#4e79a7"></span><br>
+                            Republicans {{ republicans }}<span style="size: 5%; color:#edc949"></span>
+                        </figcaption>
+                    </figure>
                 </div>
             </div>
             <div class="card" style="font-size: 100px; float:left; width: 20rem;">

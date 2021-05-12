@@ -1,7 +1,10 @@
 from textblob import TextBlob
 import csv
 from nltk import *
-from django.contrib.staticfiles.storage import staticfiles_storage
+# from django.contrib.staticfiles.storage import staticfiles_storage
+from django.contrib.staticfiles.finders import find
+# from django.templatetags.static import static
+from django.conf import settings
 
 test_tweet_questions = []
 test_tweet_answers = []
@@ -10,7 +13,9 @@ test_tweet_answers = []
 def pullTestData(dem_tweets, rep_tweets):
     n = 10000
     tn = 1000
-    with open(staticfiles_storage.url('CSV/ExtractedTweets.csv'), 'r', newline='', encoding="utf8") as csvfile:
+    with open(find('CSV/ExtractedTweets.csv'), 'r', newline='', encoding="utf8") as csvfile:
+    # with open('static/CSV/ExtractedTweets.csv', 'r', newline='', encoding="utf8") as csvfile:
+    # with open('static/CSV/ExtractedTweets.csv', 'r', newline='', encoding="utf8") as csvfile:
         reader = csv.reader(csvfile)
         rdem_tweets = []
         rrep_tweets = []
