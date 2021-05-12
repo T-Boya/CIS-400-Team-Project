@@ -6,7 +6,9 @@ from Mining the Social Web, 3rd Edition:Chapter 9: Twitter Cookbook.
 
 import twitter
 from textblob import TextBlob
-import json
+import json, time
+from urllib.error import URLError
+from http.client import BadStatusLine
 from .sentiment_analysis import create_classifier, classify_tweet
 import sys
 #import networkx as nx
@@ -32,6 +34,39 @@ def oauth_login():
     return twitter_api
 
 
+def handle_twitter_http_error(e, wait_period=2, sleep_when_rate_limited=True):
+    
+        if wait_period > 3600: # Seconds
+            print('Too many retries. Quitting.', file=sys.stderr)
+            raise e
+    
+        # See https://developer.twitter.com/en/docs/basics/response-codes
+        # for common codes
+    
+        if e.e.code == 401:
+            print('Encountered 401 Error (Not Authorized)', file=sys.stderr)
+            return None
+        elif e.e.code == 404:
+            print('Encountered 404 Error (Not Found)', file=sys.stderr)
+            return None
+        elif e.e.code == 429: 
+            print('Encountered 429 Error (Rate Limit Exceeded)', file=sys.stderr)
+            if sleep_when_rate_limited:
+                print("Retrying in 15 minutes...ZzZ...", file=sys.stderr)
+                sys.stderr.flush()
+                time.sleep(60*15 + 5)
+                print('...ZzZ...Awake now and trying again.', file=sys.stderr)
+                return 2
+            else:
+                raise e # Caller must handle the rate limiting issue
+        elif e.e.code in (500, 502, 503, 504):
+            print('Encountered {0} Error. Retrying in {1} seconds'                  .format(e.e.code, wait_period), file=sys.stderr)
+            time.sleep(wait_period)
+            wait_period *= 1.5
+            return wait_period
+        else:
+            raise e
+
 #Using twitter stream timeline to find the current tweet with filtered terms. 
 #Tweet will be sentiment analysis. 
 #Return a list of all positive sentiment tweet ID and negative sentiment tweet ID.
@@ -49,6 +84,8 @@ def Current_Tweets_Sentiment(listOfTerms, numberOfTweet):
     tweet_Counter = 0
     list_Of_Tweets = []
     list_Of_Weights = []
+    dem_tweets = []
+    rep_tweets = []
 
     print('Filtering the public timeline for track = {0}'.format(listOfTerms), file=sys.stderr)
     sys.stderr.flush()
@@ -58,6 +95,7 @@ def Current_Tweets_Sentiment(listOfTerms, numberOfTweet):
     #Uncomment if want to write to file.
     #f = open(listOfTerms+".txt", 'w');
     for tweet in stream:
+        max_errors = 10
         try:
 
             """
@@ -92,6 +130,12 @@ def Current_Tweets_Sentiment(listOfTerms, numberOfTweet):
             # print('\n\n')
 
             #Making a list of all tweets and weights
+            if 'limit' in tweet:
+                print(tweet)
+                print('sleeping for 5 mins')
+                time.sleep(60 * 5 + 5)
+                continue
+
             list_Of_Tweets.append(tweet['text'])
             list_Of_Weights.append(max(1, int(round(int(tweet['retweet_count']) * 0.4 + int(tweet['favorite_count']) * 0.2))))
 
@@ -100,8 +144,32 @@ def Current_Tweets_Sentiment(listOfTerms, numberOfTweet):
             if tweet_Counter == tweet_Max:
                 break
 
-        except:
-            pass
+        except twitter.api.TwitterHTTPError:
+            print('API ERROR TYPE {}'.format('HTTP ERROR'))
+            error_count = 0 
+            wait_period = handle_twitter_http_error(e, wait_period)
+            if wait_period is None:
+                return
+        
+        except URLError as e:
+            print('API ERROR TYPE {}'.format('URL ERROR'))
+            error_count += 1
+            time.sleep(wait_period)
+            wait_period *= 1.5
+            print("URLError encountered. Continuing.", file=sys.stderr)
+            if error_count > max_errors:
+                print("Too many consecutive errors...bailing out.", file=sys.stderr)
+                raise
+
+        except BadStatusLine as e:
+            print('API ERROR TYPE {}'.format('STATUS ERROR'))
+            error_count += 1
+            time.sleep(wait_period)
+            wait_period *= 1.5
+            print("BadStatusLine encountered. Continuing.", file=sys.stderr)
+            if error_count > max_errors:
+                print("Too many consecutive errors...bailing out.", file=sys.stderr)
+                raise
 
     """
     #write positive and negative to file
@@ -126,9 +194,11 @@ def Current_Tweets_Sentiment(listOfTerms, numberOfTweet):
         # print(list_Of_Tweets[i])
         ef = classify_tweet(classifier, wf, list_Of_Tweets[i])
         if ef == "Democrat":
+                dem_tweets.append(list_Of_Tweets[i])
                 correct_dem += list_Of_Weights[i]
         if ef == "Republican":
                 correct_rep += list_Of_Weights[i]
+                rep_tweets.append(list_Of_Tweets[i])
         i += 1
 
-    return correct_dem,correct_rep
+    return correct_dem, dem_tweets, correct_rep, rep_tweets
