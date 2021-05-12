@@ -20,9 +20,9 @@ def load_live(request):
     democrat_kwarg_list = 'biden, democratic, democrat' # API is case insensitive
     republican_kwarg_list = 'trump, republican, gop'
     bipartisan_kwarg_list = democrat_kwarg_list + ', ' + republican_kwarg_list
-    # democrats, republicans = Current_Tweets_Sentiment(bipartisan_kwarg_list, 200)
-    democrats = 150
-    republicans = 50
+    democrats, republicans = Current_Tweets_Sentiment(bipartisan_kwarg_list, 200)
+    # democrats = 150
+    # republicans = 50
     print('in the view now')
     print("Democratic: ", democrats, " Republican: ", republicans)
     winner = "DEMOCRATS" if democrats > republicans else "REPUBLICANS"
