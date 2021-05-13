@@ -132,8 +132,8 @@ def Current_Tweets_Sentiment(listOfTerms, numberOfTweet):
             #Making a list of all tweets and weights
             if 'limit' in tweet:
                 print(tweet)
-                print('sleeping for 5 mins')
-                time.sleep(60 * 5 + 5)
+                print('sleeping for 2 mins')
+                time.sleep(60 * 2 + 5)
                 continue
 
             list_Of_Tweets.append(tweet['text'])

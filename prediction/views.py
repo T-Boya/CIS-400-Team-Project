@@ -20,7 +20,7 @@ def load_live(request):
     democrat_kwarg_list = 'biden, democratic, democrat' # API is case insensitive
     republican_kwarg_list = 'trump, republican, gop'
     bipartisan_kwarg_list = democrat_kwarg_list + ', ' + republican_kwarg_list
-    democrats, dem_tweets, republicans, rep_tweets = Current_Tweets_Sentiment(bipartisan_kwarg_list, 200)
+    democrats, dem_tweets, republicans, rep_tweets = Current_Tweets_Sentiment(bipartisan_kwarg_list, 100)
     # democrats = 150
     # republicans = 50
     print('in the view now')
