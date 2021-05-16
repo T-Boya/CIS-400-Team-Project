@@ -82,40 +82,6 @@ def pullSomeTestData(n, reader):
             break
     return d_tweets, r_tweets, reader, key
 
-
-def train(dem_tweets, rep_tweets):
-    tweets = []
-    stop_words = set(stopwords.words('english'))
-    for (words, sentiment) in dem_tweets + rep_tweets:
-        words_filtered = [e.lower() for e in words.split() if len(e) >= 3 and not e in stop_words]
-        tweets.append((words_filtered, sentiment))
-    return tweets
-
-
-def get_words_in_tweets(tweets):
-    all_words = []
-    for (words, sentiment) in tweets:
-        all_words += words
-    return all_words
-
-
-def get_word_features(wordlist):
-    wordlist = FreqDist(wordlist)
-    # word_features = wordlist.keys() # careful here
-    word_features = [w for (w, c) in wordlist.most_common(1100)] #use most_common() if you want to select the most frequent words
-    return word_features
-
-
-# print  word_features
-
-def extract_features(document, word_features):
-    document_words = set(document)
-    features = {}
-    for word in word_features:
-        features['contains(%s)' % word] = (word in document_words)
-    return features
-
-
 def create_classifier():
     vectorizer = HashingVectorizer(stop_words='english', alternate_sign=False)
     try:
