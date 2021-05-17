@@ -70,8 +70,8 @@
                 <h5>Start Date | End Date</h5>
             </div>
             <div class="buttonArea">
-                <input id="startdate" type="date" value="2019-12-01"  min="2019-12-01" max="2021-04-01" >
-                <input id="enddate" type="date" value="2021-04-01" min="2019-12-01" max="2021-04-01" >
+                <input id="startdate" type="date" value="2019-12-01"  min="2019-12-01" max="2021-04-30" >
+                <input id="enddate" type="date" value="2021-04-30" min="2019-12-01" max="2021-04-30" >
             </div>
             {% comment %} <form method="post"> {% endcomment %}
                 {% comment %} {% csrf_token %} {% endcomment %}
@@ -138,10 +138,11 @@
             b2.style.display = "block";
         }
         function archiveSeach() {
-            var startdate = document.getElementById("startdate").value;
-            startdate = startdate.slice(0, 4) + startdate.slice(5,7) + startdate.slice(8)
-            var enddate = document.getElementById("enddate").value;
-            enddate = enddate.slice(0, 4) + enddate.slice(5,7) + enddate.slice(8)
+            var startdate_raw = document.getElementById("startdate").value;
+            startdate = startdate_raw.slice(5,7) + startdate_raw.slice(8) + startdate_raw.slice(2, 4);
+            var enddate_raw = document.getElementById("enddate").value;
+            enddate = enddate_raw.slice(5,7) + enddate_raw.slice(8) + enddate_raw.slice(2, 4);
+            // ONLY RUN BELOW IF START DATE IS BEFORE END DATE
             window.location = "/load_archive/" + startdate + "/" + enddate
         }
     </script>
