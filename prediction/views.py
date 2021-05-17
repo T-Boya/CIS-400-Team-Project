@@ -120,26 +120,3 @@ def load_archive(request, start_date, end_date):
         "x_vals" : x_vals,
     }
     return render(request, 'archive_results.html', context)
-
-# load view controller: will take user to appropriate page when live data loading is requested
-def loading_live(request):
-    context = {}
-    if request.session['data_loaded']:
-        return redirect(live_results)
-    elif request.session['loading_live']:
-        return render(request, 'loading_live.html', context)
-    else:
-        return redirect(load_live)
-
-def live_results(request):
-    time.sleep(10)
-    if not request.session['data_loaded']:
-        return redirect(index)
-    context = {
-        'ip' : request.session['ip'],
-        'country' : request.session['country'],
-    }
-    return render(request, 'results.html', context)
-
-
-# async def gather_data(request):

@@ -81,17 +81,6 @@ def Current_Tweets_Sentiment(listOfTerms, numberOfTweet):
     except:
         return True, 0, 0
 
-    """
-    #write positive and negative to file
-    f.write('POSITIVE TWEET ID \n')
-    json.dump(posTweetID, f, indent=1, sort_keys=True)
-    f.write('\n\n')
-    f.write('NEGATIVE TWEET ID \n')
-    json.dump(negTweetID, f, indent=1, sort_keys=True)
-    f.write('\n\n')
-    """
-    #Uncomment if want to write to file.
-    #f.close()
     sys.stdout.flush()
 
     #New Sentiment analysis on listOfTweets
@@ -105,7 +94,6 @@ def Current_Tweets_Sentiment(listOfTerms, numberOfTweet):
     print(str(len(list_Of_Tweets)), "tweets")
     print(str(len(ef)), "analyzed")
     for i in range(len(ef)):
-        # print(list_Of_Tweets[i])
         if ef[i] == "Democrat":
                 correct_dem += list_Of_Weights[i]
         if ef[i] == "Republican":
@@ -113,4 +101,3 @@ def Current_Tweets_Sentiment(listOfTerms, numberOfTweet):
         i += 1
 
     return False, correct_dem, correct_rep
-
