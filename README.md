@@ -1,12 +1,15 @@
 # CIS-400-Team-Project
 
+## Website
+https://twitterdataelectionpredictor.herokuapp.com/
+
 ## Installation Instructions
 Run pip install -r requirements.txt to install required dependencies
 
 ## Startup Instructions
 <ol>
 <li>Navigate to root directory</li>
-<li>Run python manage.py runserver</li>
+<li>Run 'python manage.py runserver'</li>
 <li>Navigate to url given in console (likely http://127.0.0.1:8000/)</li>
 </ol>
 
@@ -15,4 +18,7 @@ Run pip install -r requirements.txt to install required dependencies
 Click on 'Live Search' in navigation bar or at bottom of page to analyzy live twitter data.
 
 ### Archive Search
-Clikc on 'Archive Search' in the navigation bar or at the bottom of the page then select a date range to analyze past twitter data.
+Click on 'Archive Search' in the navigation bar or at the bottom of the page then select a date range to analyze past twitter data.
+
+## Notes
+Running the program on heroku may lead to an application error. This is not because of an error within the program but because heroku terminates all non asynchronous requests that run for over thirty seconds. This issue will not come up when running the program on localhost. A common issue with python localhost however is that if it is left inactive for a long time it may freeze without giving feedback and pages will load forever, this can be fixed by stopping (cntl + c) and restarting it.
