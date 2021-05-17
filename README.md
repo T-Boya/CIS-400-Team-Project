@@ -3,6 +3,9 @@
 ## Website
 https://twitterdataelectionpredictor.herokuapp.com/
 
+## Github
+https://github.com/T-Boya/CIS-400-Team-Project/tree/Tinashe-Osewe
+
 ## Installation Instructions
 Run pip install -r requirements.txt to install required dependencies
 
