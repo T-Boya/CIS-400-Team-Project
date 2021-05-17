@@ -137,6 +137,7 @@
         var yValues = {{ chart_data }};
         var xvals = {{ x_vals }};
 
+        Chart.defaults.global.legend.display = false;
         var chart = new Chart("myChart", {
         type: "line",
         data: {
