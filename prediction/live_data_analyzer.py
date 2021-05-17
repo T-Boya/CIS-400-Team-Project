@@ -33,40 +33,6 @@ def oauth_login():
     twitter_api = twitter.Twitter(auth=auth)
     return twitter_api
 
-
-def handle_twitter_http_error(e, wait_period=2, sleep_when_rate_limited=True):
-    
-        if wait_period > 3600: # Seconds
-            print('Too many retries. Quitting.', file=sys.stderr)
-            raise e
-    
-        # See https://developer.twitter.com/en/docs/basics/response-codes
-        # for common codes
-    
-        if e.e.code == 401:
-            print('Encountered 401 Error (Not Authorized)', file=sys.stderr)
-            return None
-        elif e.e.code == 404:
-            print('Encountered 404 Error (Not Found)', file=sys.stderr)
-            return None
-        elif e.e.code == 429: 
-            print('Encountered 429 Error (Rate Limit Exceeded)', file=sys.stderr)
-            if sleep_when_rate_limited:
-                print("Retrying in 15 minutes...ZzZ...", file=sys.stderr)
-                sys.stderr.flush()
-                time.sleep(60*15 + 5)
-                print('...ZzZ...Awake now and trying again.', file=sys.stderr)
-                return 2
-            else:
-                raise e # Caller must handle the rate limiting issue
-        elif e.e.code in (500, 502, 503, 504):
-            print('Encountered {0} Error. Retrying in {1} seconds'                  .format(e.e.code, wait_period), file=sys.stderr)
-            time.sleep(wait_period)
-            wait_period *= 1.5
-            return wait_period
-        else:
-            raise e
-
 #Using twitter stream timeline to find the current tweet with filtered terms. 
 #Tweet will be sentiment analysis. 
 #Return a list of all positive sentiment tweet ID and negative sentiment tweet ID.
