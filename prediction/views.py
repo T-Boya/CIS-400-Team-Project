@@ -3,6 +3,7 @@ from django.http import HttpResponse
 import asyncio, requests, httpx, time
 from asgiref.sync import sync_to_async
 from django.contrib.staticfiles.finders import find
+from django.template import RequestContext
 import csv
 from .live_data_analyzer import Current_Tweets_Sentiment, oauth_login
 # Vars for Archived Data
@@ -58,7 +59,7 @@ def load_live(request):
     bipartisan_kwarg_list = democrat_kwarg_list + ', ' + republican_kwarg_list
     rate_limiting, democrats, republicans = Current_Tweets_Sentiment(bipartisan_kwarg_list, 100)
     if rate_limiting:
-        return HttpResponse("<h1>Twitter API is rate limiting is active. Try again in 15 minutes or view archive data.</h1>")
+        return HttpResponse("<h1>Twitter API rate limiting is active. Try again in a few minutes or view archive data.</h1>")
     print('in the view now')
     print("Democratic: ", democrats, " Republican: ", republicans)
     winner = "DEMOCRATS" if democrats > republicans else "REPUBLICANS"

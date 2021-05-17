@@ -102,23 +102,3 @@ def classify_tweets_count(cs, vect, tweets):
         else:
             rep += 1
     return dem, rep
-
-if __name__ == "__main__":
-    tqr = [""]
-    tqd = [""]
-    ans = pullTestData(tqr, tqd)
-    classifier, vectorizer = create_classifier()
-    #test_tweet_questions = vectorizer.transform(tqr + tqd)
-    test_tweet_questions = tqr + tqd
-    ef = classify_tweets_count(classifier, vectorizer, test_tweet_questions)
-    correct_dem = 0
-    correct_rep = 0
-    tot = 2000
-    for g, a in zip(ef, ans):
-        if g == a and a == "Democrat":
-            correct_dem += 1
-        elif g == a:
-            correct_rep += 1
-    print("Correctness: " + str((correct_dem + correct_rep)/tot))
-    print("Dem correctness: " + str(correct_dem/(tot/2)))
-    print("Rep correctness: " + str(correct_rep/(tot/2)))

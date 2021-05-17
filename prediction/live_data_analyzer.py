@@ -9,6 +9,8 @@ from textblob import TextBlob
 import json, time
 from urllib.error import URLError
 from http.client import BadStatusLine
+
+from twitter.api import TwitterHTTPError
 from .sentiment_analysis import create_classifier, classify_tweet
 import sys
 #import networkx as nx
@@ -33,85 +35,51 @@ def oauth_login():
     twitter_api = twitter.Twitter(auth=auth)
     return twitter_api
 
-#Using twitter stream timeline to find the current tweet with filtered terms. 
-#Tweet will be sentiment analysis. 
-#Return a list of all positive sentiment tweet ID and negative sentiment tweet ID.
 def Current_Tweets_Sentiment(listOfTerms, numberOfTweet):
-    # Returns an instance of twitter.Twitter
-    twitter_api = oauth_login()
+    '''
+    Use twitter streaming API  to fetch 100 politically-relevant tweets 
+    and analyze their political affiliation
+    Outputs the number of democratic and republican tweets
+    '''
 
-    # Reference the self.auth parameter
-    # ADD FUNCTION WRAPPER FOR API RATE LIMITS!
-    twitter_stream = twitter.TwitterStream(auth=twitter_api.auth)
-
-    #posTweetID = []
-    #negTweetID = []
     tweet_Max = numberOfTweet
     tweet_Counter = 0
     list_Of_Tweets = []
     list_Of_Weights = []
-    dem_tweets = []
-    rep_tweets = []
+
+    # Returns an instance of twitter.Twitter
+    twitter_api = oauth_login()
+    # Reference the self.auth parameter
+    twitter_stream = twitter.TwitterStream(auth=twitter_api.auth)
 
     print('Filtering the public timeline for track = {0}'.format(listOfTerms), file=sys.stderr)
     sys.stderr.flush()
 
-    stream = twitter_stream.statuses.filter(track=listOfTerms)
+    try:
+        stream = twitter_stream.statuses.filter(track=listOfTerms)
+        for tweet in stream:
+            max_errors = 10
+            try:
 
-    #Uncomment if want to write to file.
-    #f = open(listOfTerms+".txt", 'w');
-    for tweet in stream:
-        max_errors = 10
-        try:
+                #Making a list of all tweets and weights
+                if 'limit' in tweet:
+                    print(tweet)
+                    print('sleeping for 2 mins')
+                    time.sleep(60 * 2 + 5)
+                    continue
 
-            """
-            #print and write to file
-            print (tweet['id'])
-            print (tweet['text'])
-            #Save to a database in a particular collection
-            json.dump(tweet['id'], f, indent=1, sort_keys=True)
-            f.write("\n")
-            json.dump(tweet['text'], f, indent=1, sort_keys=True)       
-            f.write("\n\n")
-            """
+                list_Of_Tweets.append(tweet['text'])
+                list_Of_Weights.append(max(1, int(round(int(tweet['retweet_count']) * 0.4 + int(tweet['favorite_count']) * 0.2))))
 
-            """
-            #Bad Sentiment analysis
-            #sentiment analysis using TextBlob
-            blob = TextBlob(tweet['text'])
-            sentimentScore = 0
-            for sentence in blob.sentences:
-                sentimentScore += sentence.sentiment.polarity
-            #print(sentimentScore)
-            #adding id to positive or negative tweet list
-            if sentimentScore > 0:
-                posTweetID.append(tweet['id'])
-            if sentimentScore < 0:
-                negTweetID.append(tweet['id'])
-            """
-            # print('NEW TWEET:')
-            # print(tweet)
-            # print("WEIGHT: ", end = '')
-            # print(min(1, str(int(tweet['retweet_count']) * 0.4 + int(tweet['favorite_count']) * 0.2)))
-            # print('\n\n')
+                #get a number of tweet in stream
+                tweet_Counter += 1
+                if tweet_Counter == tweet_Max:
+                    break
 
-            #Making a list of all tweets and weights
-            if 'limit' in tweet:
-                print(tweet)
-                print('sleeping for 2 mins')
-                time.sleep(60 * 2 + 5)
-                continue
-
-            list_Of_Tweets.append(tweet['text'])
-            list_Of_Weights.append(max(1, int(round(int(tweet['retweet_count']) * 0.4 + int(tweet['favorite_count']) * 0.2))))
-
-            #get a number of tweet in stream
-            tweet_Counter += 1
-            if tweet_Counter == tweet_Max:
-                break
-
-        except:
-            return True, 0, 0
+            except:
+                return True, 0, 0
+    except:
+        return True, 0, 0
 
     """
     #write positive and negative to file
