@@ -93,7 +93,7 @@ def load_archive(request, start_date, end_date):
                 if found_matches:
                     break
     if len(rep_votes_lst) == 0:
-        return HttpResponse('Invalid Date Range')
+        return HttpResponse('<h1>Invalid Date Range<h1>')
     dem_votes = sum(dem_votes_lst)
     rep_votes = sum(rep_votes_lst)
     winner = "DEMOCRATS" if dem_votes > rep_votes else "REPUBLICANS"
