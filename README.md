@@ -11,8 +11,8 @@ Run pip install -r requirements.txt to install required dependencies
 </ol>
 
 ## Using the website
-## Live Search
+### Live Search
 Click on 'Live Search' in navigation bar or at bottom of page to analyzy live twitter data.
 
-## Archive Search
+### Archive Search
 Clikc on 'Archive Search' in the navigation bar or at the bottom of the page then select a date range to analyze past twitter data.
