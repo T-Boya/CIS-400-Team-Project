@@ -7,7 +7,7 @@ Run pip install -r requirements.txt to install required dependencies
 <ol>
 <li>Navigate to root directory</li>
 <li>Run python manage.py runserver</li>
-<li>Navigate to port given in console (likely http://127.0.0.1:8000/)</li>
+<li>Navigate to url given in console (likely http://127.0.0.1:8000/)</li>
 </ol>
 
 ## Using the website
