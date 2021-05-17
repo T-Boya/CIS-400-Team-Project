@@ -93,9 +93,19 @@ def create_classifier():
     return classifier, vectorizer
 
 
-def classify_tweets(cs, vect, tweets):
+def classify_tweet(cs, vect, tweets):
     return cs.predict(vect.transform(tweets))
 
+def classify_tweets_count(cs, vect, tweets):
+    ef = cs.predict(vect.transform(tweets))
+    dem = 0
+    rep = 0
+    for g in ef:
+        if g == "Democrat":
+            dem += 1
+        else:
+            rep += 1
+    return dem, rep
 
 if __name__ == "__main__":
     tqr = [""]
@@ -104,7 +114,7 @@ if __name__ == "__main__":
     classifier, vectorizer = create_classifier()
     #test_tweet_questions = vectorizer.transform(tqr + tqd)
     test_tweet_questions = tqr + tqd
-    ef = classify_tweets(classifier, vectorizer, test_tweet_questions)
+    ef = classify_tweets_count(classifier, vectorizer, test_tweet_questions)
     correct_dem = 0
     correct_rep = 0
     tot = 2000
