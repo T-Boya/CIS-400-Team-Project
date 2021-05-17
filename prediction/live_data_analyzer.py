@@ -127,20 +127,22 @@ def Current_Tweets_Sentiment(listOfTerms, numberOfTweet):
     sys.stdout.flush()
 
     #New Sentiment analysis on listOfTweets
-    classifier, wf = create_classifier()
+    classifier, vect = create_classifier()
     tot = len(list_Of_Tweets)
     i = 0
     correct_dem = 0
     correct_rep = 0
-    while i < tot:
+    ef = classify_tweet(classifier, vect, list_Of_Tweets)
+    print(ef)
+    print(str(len(list_Of_Tweets)), "tweets")
+    print(str(len(ef)), "analyzed")
+    for i in range(len(ef)):
         # print(list_Of_Tweets[i])
-        ef = classify_tweet(classifier, wf, list_Of_Tweets[i])
-        if ef == "Democrat":
-                dem_tweets.append(list_Of_Tweets[i])
+        if ef[i] == "Democrat":
                 correct_dem += list_Of_Weights[i]
-        if ef == "Republican":
+        if ef[i] == "Republican":
                 correct_rep += list_Of_Weights[i]
-                rep_tweets.append(list_Of_Tweets[i])
         i += 1
 
     return False, correct_dem, correct_rep
+
