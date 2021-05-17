@@ -5,12 +5,6 @@ from Mining the Social Web, 3rd Edition:Chapter 9: Twitter Cookbook.
 """
 
 import twitter
-from textblob import TextBlob
-import json, time
-from urllib.error import URLError
-from http.client import BadStatusLine
-
-from twitter.api import TwitterHTTPError
 from .sentiment_analysis import create_classifier, classify_tweet
 import sys
 #import networkx as nx

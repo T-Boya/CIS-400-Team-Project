@@ -1,8 +1,4 @@
 import csv
-from nltk.corpus import stopwords
-from nltk import *
-from nltk import word_tokenize
-import pickle
 from django.contrib.staticfiles.finders import find
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.feature_extraction.text import HashingVectorizer
