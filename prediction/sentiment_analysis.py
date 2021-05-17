@@ -11,7 +11,7 @@ from django.contrib.staticfiles.finders import find
 def pullTestData(dem_tweets, rep_tweets):
     n = 2000
     ans = []
-    with open('ExtractedTweets.csv', 'r', newline='', encoding="utf8") as csvfile:
+    with open(find('CSV/ExtractedTweets.csv'), 'r', newline='', encoding="utf8") as csvfile:
         reader = csv.reader(csvfile) # create a reader
         d = 0 # vars to store the number of reps and dems found so far
         r = 0
@@ -34,7 +34,7 @@ def pullTestData(dem_tweets, rep_tweets):
 def big_training():
     clf = MultinomialNB() # create an untrained classifier.
     vectorizer = HashingVectorizer(stop_words='english', alternate_sign=False) # create our vectorizer to turn tweets into matrixes
-    with open('ExtractedTweets.csv', 'r', newline='', encoding="utf8") as csvfile: # open training data
+    with open(find('CSV/ExtractedTweets.csv'), 'r', newline='', encoding="utf8") as csvfile: # open training data
         b = 0 # keeps track of how many tweets we have trained on so far
         reader = csv.reader(csvfile)
         dem_tweets = ["Trump Sucks"] # need to put at least on tweet in to get into the while loop
