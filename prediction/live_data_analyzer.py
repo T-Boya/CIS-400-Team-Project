@@ -111,7 +111,7 @@ def Current_Tweets_Sentiment(listOfTerms, numberOfTweet):
                 break
 
         except:
-            return True, 0, 0, 0, 0
+            return True, 0, 0
 
     """
     #write positive and negative to file
@@ -143,4 +143,4 @@ def Current_Tweets_Sentiment(listOfTerms, numberOfTweet):
                 rep_tweets.append(list_Of_Tweets[i])
         i += 1
 
-    return False, correct_dem, dem_tweets, correct_rep, rep_tweets
+    return False, correct_dem, correct_rep

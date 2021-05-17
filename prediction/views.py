@@ -56,9 +56,9 @@ def load_live(request):
     democrat_kwarg_list = 'biden, democratic, democrat' # API is case insensitive
     republican_kwarg_list = 'trump, republican, gop'
     bipartisan_kwarg_list = democrat_kwarg_list + ', ' + republican_kwarg_list
-    rate_limiting, democrats, dem_tweets, republicans, rep_tweets = Current_Tweets_Sentiment(bipartisan_kwarg_list, 100)
+    rate_limiting, democrats, republicans = Current_Tweets_Sentiment(bipartisan_kwarg_list, 100)
     if rate_limiting:
-        return HttpResponse("<h1>Twitter API is rate limiting is active, try again in 15 minutes.</h1>")
+        return HttpResponse("<h1>Twitter API is rate limiting is active. Try again in 15 minutes or view archive data.</h1>")
     print('in the view now')
     print("Democratic: ", democrats, " Republican: ", republicans)
     winner = "DEMOCRATS" if democrats > republicans else "REPUBLICANS"
@@ -71,9 +71,7 @@ def load_live(request):
                 "total" : (democrats + republicans),
                 "vote_share" : vote_share,
                 "pie_chart" : pie_chart,
-                "winner_vote_share" : winner_vote_share,
-                "dem_tweets" : dem_tweets[:10],
-                "rep_tweets": rep_tweets[:10],}
+                "winner_vote_share" : winner_vote_share,}
     return render(request, 'live_results.html', context)
 
 def load_archive(request, start_date, end_date):
@@ -87,7 +85,7 @@ def load_archive(request, start_date, end_date):
             archive_date = ''.join(archive_date_raw)
             if within_date_range(start_date, end_date, archive_date):
                 found_matches = True
-                rep_votes_lst.append(int(contents[1])) # ask daniel if this is rep or dem column
+                rep_votes_lst.append(int(contents[1]))
                 dem_votes_lst.append(int(contents[2]))
             else:
                 if found_matches:
