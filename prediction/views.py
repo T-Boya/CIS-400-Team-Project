@@ -55,12 +55,10 @@ def index(request):
 def load_live(request):
     democrat_kwarg_list = 'biden, democratic, democrat' # API is case insensitive
     republican_kwarg_list = 'trump, republican, gop'
-    # bipartisan_kwarg_list = democrat_kwarg_list + ', ' + republican_kwarg_list
-    democrats, dem_tweets, republicans, rep_tweets = Current_Tweets_Sentiment(bipartisan_kwarg_list, 100)
-    # democrats = 150
-    # dem_tweets = []
-    # republicans = 50
-    # rep_tweets = []
+    bipartisan_kwarg_list = democrat_kwarg_list + ', ' + republican_kwarg_list
+    rate_limiting, democrats, dem_tweets, republicans, rep_tweets = Current_Tweets_Sentiment(bipartisan_kwarg_list, 100)
+    if rate_limiting:
+        return HttpResponse("<h1>Twitter API is rate limiting is active, try again in 15 minutes.</h1>")
     print('in the view now')
     print("Democratic: ", democrats, " Republican: ", republicans)
     winner = "DEMOCRATS" if democrats > republicans else "REPUBLICANS"

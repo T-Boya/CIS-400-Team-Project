@@ -144,32 +144,8 @@ def Current_Tweets_Sentiment(listOfTerms, numberOfTweet):
             if tweet_Counter == tweet_Max:
                 break
 
-        except twitter.api.TwitterHTTPError:
-            print('API ERROR TYPE {}'.format('HTTP ERROR'))
-            error_count = 0 
-            wait_period = handle_twitter_http_error(e, wait_period)
-            if wait_period is None:
-                return
-        
-        except URLError as e:
-            print('API ERROR TYPE {}'.format('URL ERROR'))
-            error_count += 1
-            time.sleep(wait_period)
-            wait_period *= 1.5
-            print("URLError encountered. Continuing.", file=sys.stderr)
-            if error_count > max_errors:
-                print("Too many consecutive errors...bailing out.", file=sys.stderr)
-                raise
-
-        except BadStatusLine as e:
-            print('API ERROR TYPE {}'.format('STATUS ERROR'))
-            error_count += 1
-            time.sleep(wait_period)
-            wait_period *= 1.5
-            print("BadStatusLine encountered. Continuing.", file=sys.stderr)
-            if error_count > max_errors:
-                print("Too many consecutive errors...bailing out.", file=sys.stderr)
-                raise
+        except:
+            return True, 0, 0, 0, 0
 
     """
     #write positive and negative to file
@@ -201,4 +177,4 @@ def Current_Tweets_Sentiment(listOfTerms, numberOfTweet):
                 rep_tweets.append(list_Of_Tweets[i])
         i += 1
 
-    return correct_dem, dem_tweets, correct_rep, rep_tweets
+    return False, correct_dem, dem_tweets, correct_rep, rep_tweets
