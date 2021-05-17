@@ -84,12 +84,7 @@ def pullSomeTestData(n, reader):
 
 def create_classifier():
     vectorizer = HashingVectorizer(stop_words='english', alternate_sign=False)
-    try:
-        classifier = pickle.load(open("trained_classifier", "rb"))
-    except OSError as e:
-        print(e)
-        classifier = big_training()
-        pickle.dump(classifier, open("trained_classifier", "wb"))
+    classifier = big_training()
     return classifier, vectorizer
 
 
