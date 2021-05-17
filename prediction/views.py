@@ -12,6 +12,10 @@ from .live_data_analyzer import Current_Tweets_Sentiment, oauth_login
 # instead of a 'clear data' option
 
 def within_date_range(start_date, end_date, archive_date):
+    '''
+    Takes a start date, end date and test date, returns True is the test
+    date is between the start and end dates and False if it is not
+    '''
     start_date = [int(start_date[:-4]), int(start_date[-4:-2]), int(start_date[-2:])]
     end_date = [int(end_date[:-4]), int(end_date[-4:-2]), int(end_date[-2:])]
     archive_date = [int(archive_date[:-4]), int(archive_date[-4:-2]), int(archive_date[-2:])]
@@ -45,27 +49,35 @@ def within_date_range(start_date, end_date, archive_date):
             return True
     return False
 
-# Create your views here.
 def index(request):
-    # if request.session['data_loaded']:
-    #     return redirect(view_live)
+    '''
+    Display homepage
+    '''
     context = {}
     return render(request, 'index.html', context)
 
-# load live twitter data
 def load_live(request):
-    democrat_kwarg_list = 'biden, democratic, democrat' # API is case insensitive
+    '''
+    Gather 100 tweets from twitter streaming API run sentiment analysis on
+    them to determine political affiliation and display breakdown of results
+    '''
+    # Gather tweets and run sentiment analysis on them
+    democrat_kwarg_list = 'biden, democratic, democrat'
     republican_kwarg_list = 'trump, republican, gop'
     bipartisan_kwarg_list = democrat_kwarg_list + ', ' + republican_kwarg_list
     rate_limiting, democrats, republicans = Current_Tweets_Sentiment(bipartisan_kwarg_list, 100)
-    if rate_limiting:
+    if rate_limiting: # Handle error
         return HttpResponse("<h1>Twitter API rate limiting is active. Try again in a few minutes or view archive data.</h1>")
     print('in the view now')
     print("Democratic: ", democrats, " Republican: ", republicans)
+
+    # Calculate relevant metrics from results
     winner = "DEMOCRATS" if democrats > republicans else "REPUBLICANS"
     vote_share = democrats * 100 / (democrats + republicans)
     winner_vote_share= (democrats * 100 / (democrats + republicans)) if democrats > republicans else (republicans * 100 / (democrats + republicans))
     pie_chart = "radial-gradient( circle closest-side, transparent 66%, white 0), conic-gradient(#4e79a7 0, #4e79a7 {}%, #edc949 0, #edc949 100%);".format(vote_share)
+    
+    # Send data to webpage
     context  = {"winner" : winner,
                 "democrats" : democrats,
                 "republicans" : republicans,
@@ -76,6 +88,11 @@ def load_live(request):
     return render(request, 'live_results.html', context)
 
 def load_archive(request, start_date, end_date):
+    '''
+    Display breakdown of political affiliation over given time range
+    using pre-analyzed twitter data
+    '''
+    # collect data from archive
     dem_votes_lst = []
     rep_votes_lst = []
     with open(find('TXT/past_tweet_analysis.txt'), 'r') as archive_data:
@@ -91,7 +108,9 @@ def load_archive(request, start_date, end_date):
             else:
                 if found_matches:
                     break
-    if len(rep_votes_lst) == 0:
+            
+    # Calculate relevant metrics from results
+    if len(rep_votes_lst) == 0: # Handle Error
         return HttpResponse('<h1>Invalid Date Range<h1>')
     dem_votes = sum(dem_votes_lst)
     rep_votes = sum(rep_votes_lst)
@@ -103,12 +122,13 @@ def load_archive(request, start_date, end_date):
     chart_data = '['
     x_vals = '['
     for i in range(len(ratio_lst)):
-        # chart_data += '{x:' + str(i) + ", y:" + str(ratio_lst[i]) + "},"
         chart_data += str(ratio_lst[i]) + ","
         x_vals += str(i) + ","
     chart_data = chart_data[:-1] + "]"
     x_vals = x_vals[:-1] + "]"
     winner_vote_share = int((dem_votes * 100 / (dem_votes + rep_votes)) if dem_votes > rep_votes else (rep_votes * 100 / (dem_votes + rep_votes)))
+    
+    # Send data to webpage
     context  = {
         "winner" : winner,
         "winner_vote_share" : winner_vote_share,
