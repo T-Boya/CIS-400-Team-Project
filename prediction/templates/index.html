@@ -70,13 +70,14 @@
                 <h5>Start Date | End Date</h5>
             </div>
             <div class="buttonArea">
-                <input type="date" value="2019-12-01"  min="2019-12-01" max="2021-04-01" >
-                <input type="date" value="2021-04-01" min="2019-12-01" max="2021-04-01" >
+                <input id="startdate" type="date" value="2019-12-01"  min="2019-12-01" max="2021-04-01" >
+                <input id="enddate" type="date" value="2021-04-01" min="2019-12-01" max="2021-04-01" >
             </div>
-            <form action="{% url 'load_archive' %}" method="post">
-                {% csrf_token %}
-                <button class="searchButton" href="{% url 'load_archive' %}" onclick="loadingScreen()">Go</button>
-            </form>
+            {% comment %} <form method="post"> {% endcomment %}
+                {% comment %} {% csrf_token %} {% endcomment %}
+                {% comment %} <button class="searchButton" href="{% url 'load_archive' %}" onclick="loadingScreen()">Go</button> {% endcomment %}
+                <button class="searchButton" onclick="archiveSeach()">Go</button>
+            {% comment %} </form> {% endcomment %}
         </div>
      </div>
     </section>
@@ -135,6 +136,13 @@
             var b2 = document.getElementById("body2");
             b1.style.display = "none";
             b2.style.display = "block";
+        }
+        function archiveSeach() {
+            var startdate = document.getElementById("startdate").value;
+            startdate = startdate.slice(0, 4) + startdate.slice(5,7) + startdate.slice(8)
+            var enddate = document.getElementById("enddate").value;
+            enddate = enddate.slice(0, 4) + enddate.slice(5,7) + enddate.slice(8)
+            window.location = "/load_archive/" + startdate + "/" + enddate
         }
     </script>
 </body>

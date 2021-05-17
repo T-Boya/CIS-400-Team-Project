@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import asyncio, requests, httpx, time
 from asgiref.sync import sync_to_async
+from django.contrib.staticfiles.finders import find
 from .live_data_analyzer import Current_Tweets_Sentiment, oauth_login
 # Vars for Archived Data
 
@@ -20,9 +21,11 @@ def load_live(request):
     democrat_kwarg_list = 'biden, democratic, democrat' # API is case insensitive
     republican_kwarg_list = 'trump, republican, gop'
     bipartisan_kwarg_list = democrat_kwarg_list + ', ' + republican_kwarg_list
-    democrats, dem_tweets, republicans, rep_tweets = Current_Tweets_Sentiment(bipartisan_kwarg_list, 100)
-    # democrats = 150
-    # republicans = 50
+    # democrats, dem_tweets, republicans, rep_tweets = Current_Tweets_Sentiment(bipartisan_kwarg_list, 100)
+    democrats = 150
+    dem_tweets = []
+    republicans = 50
+    rep_tweets = []
     print('in the view now')
     print("Democratic: ", democrats, " Republican: ", republicans)
     winner = "DEMOCRATS" if democrats > republicans else "REPUBLICANS"
@@ -40,8 +43,16 @@ def load_live(request):
                 "rep_tweets": rep_tweets[:10],}
     return render(request, 'results.html', context)
 
-def load_archive(request):
-    time.sleep(5)
+def load_archive(request, start_date, end_date):
+    dem_votes = []
+    rep_votes = []
+    with open(find('TXT/past_tweet_analysis.txt'), 'r') as archive_data:
+        for line in archive_data:
+            contents = line.split()
+            if contents[0] < start_date:
+                continue
+            rep_votes.append(contents[1]) # ask daniel if this is rep or dem column
+            dem_votes.append(contents[2])
     context  = {}
     return render(request, 'results.html', context)
 
@@ -49,13 +60,13 @@ def load_archive(request):
 def loading_live(request):
     context = {}
     if request.session['data_loaded']:
-        return redirect(results)
+        return redirect(live_results)
     elif request.session['loading_live']:
         return render(request, 'loading_live.html', context)
     else:
         return redirect(load_live)
 
-def results(request):
+def live_results(request):
     time.sleep(10)
     if not request.session['data_loaded']:
         return redirect(index)
